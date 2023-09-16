@@ -8,12 +8,13 @@ import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import br.com.fiap.leiapramim.view.CameraScreen
 import br.com.fiap.leiapramim.view.GalleryScreen
 import br.com.fiap.leiapramim.view.HomeScreen
+import br.com.fiap.leiapramim.view.PocOcr
 import br.com.fiap.leiapramim.view.PreviewScreen
 
 @Composable
 fun NavigationGraph(navController: NavHostController, navigationViewModel: NavigationViewModel) {
 
-    NavHost(navController, startDestination = NavigationItem.Home.route) {
+    NavHost(navController, startDestination = "OCR") {
         composable(NavigationItem.Home.route) { HomeScreen(navController, navigationViewModel) }
         composable(NavigationItem.Camera.route) { CameraScreen(navController, navigationViewModel) }
         composable(NavigationItem.Gallery.route) { GalleryScreen(navController, navigationViewModel) }
@@ -21,6 +22,9 @@ fun NavigationGraph(navController: NavHostController, navigationViewModel: Navig
         composable(route = "${NavigationItem.Preview.route}/{uri}") {
             PreviewScreen(navController, it.arguments?.getString("uri")!!)
         }
+        
+        // TEMPORÁRIA
+        composable("OCR") { PocOcr() }
     }
 
 }

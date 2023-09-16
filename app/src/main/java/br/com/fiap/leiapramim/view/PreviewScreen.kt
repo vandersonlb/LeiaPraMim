@@ -27,6 +27,7 @@ import coil.compose.rememberImagePainter
 fun PreviewScreen(navController: NavHostController, uri: String) {
 
     val uri = Uri.parse(uri)
+    Log.i("teste", "$uri")
 
     Box {
         Image(

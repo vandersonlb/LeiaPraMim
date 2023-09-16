@@ -1,8 +1,12 @@
 package br.com.fiap.leiapramim.view
 
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.util.Size
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.compose.foundation.layout.Arrangement
@@ -27,14 +31,22 @@ import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.view.components.BottomNavigation
 import br.com.fiap.leiapramim.view.components.CameraView
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 @Composable
 fun CameraScreen(navController: NavHostController, navigationViewModel: NavigationViewModel) {
 
+    // Diminuindo a resolução de saída da imagem.
+    val screenWith = Resources.getSystem().displayMetrics.widthPixels / 4
+    val screenHeigth = Resources.getSystem().displayMetrics.heightPixels / 4
+
     val context = LocalContext.current
     val cameraExecutor = ContextCompat.getMainExecutor(context)
-    val imageCapture = ImageCapture.Builder().build()
+    val imageCapture = ImageCapture.Builder()
+        .setTargetResolution(Size(screenWith, screenHeigth))
+        .build()
 
     Box {
 
@@ -51,11 +63,12 @@ fun CameraScreen(navController: NavHostController, navigationViewModel: Navigati
                     onClick = {
 
 //                        val picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                        val picturesDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                        val outputFile = File(picturesDirectory, "${System.currentTimeMillis()}.jpg")
+//                        val picturesDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                        val picturesDirectory = context.filesDir
 
-//                        val outputFile = File(context.externalMediaDirs.first(),"${System.currentTimeMillis()}.jpg")
-//                        val outputFile = File(context.filesDir, "${System.currentTimeMillis()}.jpg")
+//                        val outputFile = File(picturesDirectory, "${System.currentTimeMillis()}.jpg")
+                        val outputFile = File(picturesDirectory, "foto_teste.jpg")
+
                         val outputOptions = ImageCapture.OutputFileOptions.Builder(outputFile).build()
 
                         imageCapture.takePicture(
@@ -74,7 +87,6 @@ fun CameraScreen(navController: NavHostController, navigationViewModel: Navigati
                                 }
                             }
                         )
-
                     },
                 ) {
                     Icon(
