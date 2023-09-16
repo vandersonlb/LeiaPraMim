@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import br.com.fiap.leiapramim.model.NavigationViewModel
+import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import br.com.fiap.leiapramim.view.CameraScreen
 import br.com.fiap.leiapramim.view.GalleryScreen
 import br.com.fiap.leiapramim.view.HomeScreen
@@ -18,8 +18,8 @@ fun NavigationGraph(navController: NavHostController, navigationViewModel: Navig
         composable(NavigationItem.Camera.route) { CameraScreen(navController, navigationViewModel) }
         composable(NavigationItem.Gallery.route) { GalleryScreen(navController, navigationViewModel) }
 
-        composable(route = "preview/{fileName}") {
-            PreviewScreen(navController, it.arguments?.getString("fileName")!!)
+        composable(route = "${NavigationItem.Preview.route}/{uri}") {
+            PreviewScreen(navController, it.arguments?.getString("uri")!!)
         }
     }
 

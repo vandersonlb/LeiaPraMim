@@ -20,7 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import br.com.fiap.leiapramim.model.NavigationViewModel
+import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.ui.theme.Black
 import br.com.fiap.leiapramim.ui.theme.Orange
@@ -29,11 +29,16 @@ import br.com.fiap.leiapramim.ui.theme.White
 @Composable
 fun BottomNavigation(
     navController: NavHostController,
-    navItems: List<NavigationItem>,
     navigationViewModel: NavigationViewModel
 ) {
 
-    val activeScreen by navigationViewModel.activeScreen.observeAsState("Home")
+    val activeScreen by navigationViewModel.activeScreen.observeAsState(NavigationItem.Home.title)
+
+    val navItems = listOf(
+        NavigationItem.Home,
+        NavigationItem.Camera,
+        NavigationItem.Gallery
+    )
 
     BottomAppBar(
         actions = {

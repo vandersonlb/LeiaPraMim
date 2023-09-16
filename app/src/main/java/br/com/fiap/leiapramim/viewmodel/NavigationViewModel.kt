@@ -1,4 +1,4 @@
-package br.com.fiap.leiapramim.model
+package br.com.fiap.leiapramim.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
