@@ -1,8 +1,6 @@
 package br.com.fiap.leiapramim.route
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,7 +9,6 @@ import br.com.fiap.leiapramim.view.CameraScreen
 import br.com.fiap.leiapramim.view.GalleryScreen
 import br.com.fiap.leiapramim.view.HomeScreen
 import br.com.fiap.leiapramim.view.PreviewScreen
-import br.com.fiap.leiapramim.viewmodel.ReadImageListViewModel
 
 @Composable
 fun NavigationGraph(

@@ -18,8 +18,8 @@ fun takePicture(
     navController: NavHostController
 ) {
 
-    val picturesDirectory = context.filesDir
-//    val picturesDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//    val picturesDirectory = context.filesDir
+    val picturesDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     val outputFile = File(picturesDirectory, "${System.currentTimeMillis()}.jpg")
     val outputOptions = ImageCapture.OutputFileOptions.Builder(outputFile).build()
 

@@ -3,7 +3,6 @@ package br.com.fiap.leiapramim.view.actions
 import android.content.Context
 import android.net.Uri
 import br.com.fiap.leiapramim.model.ReadImage
-import br.com.fiap.leiapramim.viewmodel.ReadImageListViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

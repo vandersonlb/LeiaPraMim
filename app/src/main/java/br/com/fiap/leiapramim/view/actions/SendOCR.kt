@@ -29,15 +29,12 @@ suspend fun sendOCR(uri: Uri): String {
         ) {
             val ocrResponse = response.body()
 
+            //MELHORAR GERENCIAMENTO DE ERROS AQUI
             if (ocrResponse != null && ocrResponse.ocrExitCode != 1)
-                deferred.complete("Não foi possível ler a foto, tente novamente!")
+                deferred.completeExceptionally(Exception("Falha na leitura da imagem"))
 
             val parsedText = ocrResponse?.parsedResults?.getOrNull(0)?.parsedText ?: ""
-            if (parsedText == "Não foi possível ler a foto, tente novamente!") {
-                deferred.complete(parsedText)
-            } else {
-                deferred.complete(parsedText)
-            }
+            deferred.complete(parsedText)
         }
 
         override fun onFailure(call: Call<OCRModel>, t: Throwable) {

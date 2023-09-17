@@ -10,13 +10,13 @@ class ReadImageRepository(context: Context) {
 
     fun save(readImage: ReadImage): Long {
         return db.save(readImage)
+    }
 
-        fun list(): List<ReadImage> {
-            return db.list()
-        }
+    fun list(): List<ReadImage> {
+        return db.list()
+    }
 
-        fun getById(id: Long): ReadImage {
-            return db.getById(id)
-        }
+    fun getById(id: Long): ReadImage {
+        return db.getById(id)
     }
 }
