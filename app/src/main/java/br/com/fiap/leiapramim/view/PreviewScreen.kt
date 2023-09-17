@@ -1,7 +1,6 @@
 package br.com.fiap.leiapramim.view
 
 import android.net.Uri
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,18 +20,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
+import br.com.fiap.leiapramim.view.actions.SendOCR
 import coil.compose.rememberImagePainter
 
 @Composable
-fun PreviewScreen(navController: NavHostController, uri: String) {
+fun PreviewScreen(navController: NavHostController, uriString: String) {
 
-    val uri = Uri.parse(uri)
-    Log.i("teste", "$uri")
+    val uri = Uri.parse(uriString)
 
     Box {
         Image(
             painter = rememberImagePainter(data = uri),
-//            painter = painterResource(id = R.drawable.foto),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -55,13 +53,17 @@ fun PreviewScreen(navController: NavHostController, uri: String) {
                     ButtonPreview(
                         R.drawable.cancel,
                         "Botão de cancelar"
-                    ) { navController.popBackStack() }
+                    ) {
+                        navController.popBackStack()
+                    }
                 }
                 Column(columnModifier) {
                     ButtonPreview(
                         R.drawable.done,
                         "Botão de aceitar"
-                    ) { Log.i("teste", "ACEITADO") }
+                    ) {
+                        SendOCR(uri)
+                    }
                 }
             }
         }
@@ -81,6 +83,3 @@ fun ButtonPreview(icon: Int, description: String, action: () -> Unit) {
         )
     }
 }
-
-
-

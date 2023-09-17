@@ -37,7 +37,7 @@ fun TocaAudio() {
         Button(
             onClick = {
 
-                var call = TTSClient().getTTSService().getTeste()
+                var call = TTSClient().getTTSService().getTeste("Testando 1 2 3")
 
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
@@ -56,9 +56,9 @@ fun TocaAudio() {
                                 }
 
                                 // Configura o MediaPlayer
-                                mediaPlayer.setDataSource(audioFile.path)
-                                mediaPlayer.prepare()
-                                mediaPlayer.start()
+//                                mediaPlayer.setDataSource(audioFile.path)
+//                                mediaPlayer.prepare()
+//                                mediaPlayer.start()
                             }
                         }
                     }
