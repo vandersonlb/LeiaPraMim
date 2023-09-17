@@ -4,17 +4,17 @@ import android.net.Uri
 import android.util.Log
 import br.com.fiap.leiapramim.model.OCRModel
 import br.com.fiap.leiapramim.service.OCRClient
+import kotlinx.coroutines.CompletableDeferred
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
-fun SendOCR(uri: Uri) {
+suspend fun sendOCR(uri: Uri): String {
+    val deferred = CompletableDeferred<String>()
 
     val file = File(uri.path ?: "")
     val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
@@ -27,24 +27,19 @@ fun SendOCR(uri: Uri) {
             call: Call<OCRModel>,
             response: Response<OCRModel>
         ) {
-
             val ocrResponse = response.body()
 
-            if (ocrResponse != null && ocrResponse?.ocrExitCode != 1)
-                throw Exception("Falha na leitura da imagem")
+            if (ocrResponse != null && ocrResponse.ocrExitCode != 1)
+                deferred.completeExceptionally(Exception("Falha na leitura da imagem"))
 
-            if (ocrResponse?.parsedResults?.get(0)?.parsedText == "") {
-                Log.i("FIAP", "Não achou texto")
-            } else {
-                Log.i("FIAP", "ACHOU texto")
-                Log.i("FIAP", "${response.body()?.parsedResults?.get(0)?.parsedText!!}")
-            }
-
+            val parsedText = ocrResponse?.parsedResults?.getOrNull(0)?.parsedText ?: ""
+            deferred.complete(parsedText)
         }
 
         override fun onFailure(call: Call<OCRModel>, t: Throwable) {
-            Log.e("FIAP", "$t")
+            deferred.completeExceptionally(t)
         }
-
     })
+
+    return deferred.await()
 }

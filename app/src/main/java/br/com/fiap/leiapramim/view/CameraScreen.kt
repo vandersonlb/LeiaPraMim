@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
-import br.com.fiap.leiapramim.view.actions.TakePicture
+import br.com.fiap.leiapramim.view.actions.takePicture
 import br.com.fiap.leiapramim.view.components.BottomNavigation
 import br.com.fiap.leiapramim.view.components.CameraView
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
@@ -50,7 +50,7 @@ fun CameraScreen(navController: NavHostController, navigationViewModel: Navigati
                 IconButton(
                     modifier = Modifier.fillMaxWidth().height(100.dp),
                     onClick = {
-                        TakePicture(context, imageCapture, cameraExecutor, navController)
+                        takePicture(context, imageCapture, cameraExecutor, navController)
                     },
                 ) {
                     Icon(

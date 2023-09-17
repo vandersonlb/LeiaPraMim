@@ -11,15 +11,15 @@ import br.com.fiap.leiapramim.route.NavigationItem
 import java.io.File
 import java.util.concurrent.Executor
 
-fun TakePicture(
+fun takePicture(
     context: Context,
     imageCapture: ImageCapture,
     cameraExecutor: Executor,
     navController: NavHostController
 ) {
 
-//    val picturesDirectory = context.filesDir
-    val picturesDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+    val picturesDirectory = context.filesDir
+//    val picturesDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     val outputFile = File(picturesDirectory, "${System.currentTimeMillis()}.jpg")
     val outputOptions = ImageCapture.OutputFileOptions.Builder(outputFile).build()
 

@@ -37,7 +37,7 @@ fun TocaAudio() {
         Button(
             onClick = {
 
-                var call = TTSClient().getTTSService().getTeste("Testando 1 2 3")
+                var call = TTSClient().getTTSService().getSpeech("HAHAHAH")
 
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
