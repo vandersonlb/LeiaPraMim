@@ -19,7 +19,6 @@ import br.com.fiap.leiapramim.view.components.BottomNavigation
 
 @Composable
 fun HomeScreen(navController: NavHostController, navigationViewModel: NavigationViewModel) {
-
     Column {
         Row(
             Modifier

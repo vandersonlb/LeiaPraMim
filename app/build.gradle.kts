@@ -98,7 +98,7 @@ dependencies {
 //    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
 
-    //Coil
+    // Coil
     implementation ("io.coil-kt:coil-compose:1.4.0")
 
 //    implementation("com.squareup.okhttp3:okhttp:4.1.0")

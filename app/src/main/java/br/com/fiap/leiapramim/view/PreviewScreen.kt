@@ -2,7 +2,7 @@ package br.com.fiap.leiapramim.view
 
 import android.media.MediaPlayer
 import android.net.Uri
-import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,7 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
+import br.com.fiap.leiapramim.database.repository.ReadImageRepository
 import br.com.fiap.leiapramim.model.ReadImage
+import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.view.actions.asyncCallApis
 import br.com.fiap.leiapramim.view.components.loading
 import br.com.fiap.leiapramim.view.components.playButton
@@ -40,13 +41,18 @@ import java.io.File
 import java.time.LocalDateTime
 
 @Composable
-fun PreviewScreen(navController: NavHostController, uriString: String) {
+fun PreviewScreen(
+    navController: NavHostController,
+    uriString: String
+) {
 
     val context = LocalContext.current
+    val readImageRepository = ReadImageRepository(context)
     val uri = Uri.parse(uriString)
+    val mediaPlayer = MediaPlayer()
     var loadingState by remember { mutableStateOf(false) }
     var audioReady by remember { mutableStateOf(false) }
-    var readImage by remember { mutableStateOf(ReadImage("", "", LocalDateTime.now())) }
+    var readImage by remember { mutableStateOf(ReadImage(0, "", "", LocalDateTime.now())) }
 
     Box {
         Image(
@@ -57,7 +63,6 @@ fun PreviewScreen(navController: NavHostController, uriString: String) {
         )
 
         if (!loadingState && !audioReady) {
-
             Column(
                 Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Bottom,
@@ -91,13 +96,13 @@ fun PreviewScreen(navController: NavHostController, uriString: String) {
                                 readImage = asyncCallApis(uri, context)
                                 loadingState = !loadingState
                                 audioReady = !audioReady
+                                readImageRepository.save(readImage)
                             }
 
                         }
                     }
                 }
             }
-
         }
 
         if (loadingState && !audioReady) {
@@ -105,10 +110,8 @@ fun PreviewScreen(navController: NavHostController, uriString: String) {
                 loading()
             }
         }
+
         if (audioReady) {
-
-            val mediaPlayer = MediaPlayer()
-
             Column {
                 playButton(File(readImage.audioPath), mediaPlayer)
 
@@ -116,18 +119,24 @@ fun PreviewScreen(navController: NavHostController, uriString: String) {
                     mediaPlayer.reset()
                     mediaPlayer.release()
                     audioReady = !audioReady
-                    Log.i("FIAP", "Terminou o audio")
-                }
-
-                DisposableEffect(Unit) {
-                    onDispose {
-                        mediaPlayer.release()
-                    }
+                    navController.navigate(NavigationItem.Camera.route)
                 }
 
             }
         }
     }
+
+    BackHandler(
+        enabled = true,
+        onBack = {
+            mediaPlayer.reset()
+            mediaPlayer.release()
+            loadingState = false
+            audioReady = false
+            readImage = ReadImage(0, "", "", LocalDateTime.now())
+            navController.navigate(NavigationItem.Camera.route)
+        }
+    )
 }
 
 @Composable

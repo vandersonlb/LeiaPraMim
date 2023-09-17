@@ -3,12 +3,16 @@ package br.com.fiap.leiapramim.view.actions
 import android.content.Context
 import android.net.Uri
 import br.com.fiap.leiapramim.model.ReadImage
+import br.com.fiap.leiapramim.viewmodel.ReadImageListViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import java.time.LocalDateTime
 
-suspend fun asyncCallApis(uri: Uri, context: Context): ReadImage {
+suspend fun asyncCallApis(
+    uri: Uri,
+    context: Context
+): ReadImage {
 
     val ocrResponseDeferred = coroutineScope {
         async(Dispatchers.IO) {
@@ -25,7 +29,5 @@ suspend fun asyncCallApis(uri: Uri, context: Context): ReadImage {
 
     val audioFile = ttsResponseDeferred.await()
 
-    return ReadImage(uri.path, audioFile?.path, LocalDateTime.now())
-
-
+    return ReadImage(0, uri.path, audioFile?.path, LocalDateTime.now())
 }
