@@ -5,11 +5,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class OCRClient {
 
-    private val BASE_URL = "https://api.ocr.space/"
+    private val url = "https://api.ocr.space/"
 
     private val retrofit = Retrofit
         .Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(url)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

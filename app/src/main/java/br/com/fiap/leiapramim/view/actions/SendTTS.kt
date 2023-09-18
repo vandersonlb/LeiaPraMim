@@ -1,6 +1,5 @@
 package br.com.fiap.leiapramim.view.actions
 
-import android.content.Context
 import android.net.Uri
 import android.util.Log
 import br.com.fiap.leiapramim.service.TTSClient
@@ -14,13 +13,13 @@ import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 
-suspend fun sendTTS(uri: Uri, context: Context, ocrText: String): File? {
+suspend fun sendTTS(uri: Uri, ocrText: String): File? {
 
     val path = uri.path?.substringBeforeLast("/")
     val filename = uri.lastPathSegment?.substringBeforeLast(".")
     val deferred = CompletableDeferred<File?>()
 
-    var call = TTSClient().getTTSService().getSpeech(ocrText)
+    val call = TTSClient().getTTSService().getSpeech(ocrText)
 
     call.enqueue(object : Callback<ResponseBody> {
         override fun onResponse(
@@ -42,7 +41,7 @@ suspend fun sendTTS(uri: Uri, context: Context, ocrText: String): File? {
         }
 
         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-            Log.e("FIAP", "${t}")
+            Log.e("test", "$t")
             deferred.complete(null)
         }
 

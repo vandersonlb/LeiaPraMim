@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,15 +32,17 @@ import br.com.fiap.leiapramim.database.repository.ReadImageRepository
 import br.com.fiap.leiapramim.model.ReadImage
 import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.view.actions.asyncCallApis
-import br.com.fiap.leiapramim.view.components.loading
-import br.com.fiap.leiapramim.view.components.playButton
+import br.com.fiap.leiapramim.view.components.Loading
+import br.com.fiap.leiapramim.view.components.PlayButton
 import coil.compose.rememberImagePainter
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.time.LocalDateTime
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun PreviewScreen(
     navController: NavHostController,
@@ -73,13 +76,11 @@ fun PreviewScreen(
                 ) {
                     val columnModifier = Modifier
                         .weight(1f)
-//                    .fillMaxSize()
-//                    .background(Color.Red)
                         .wrapContentWidth(Alignment.CenterHorizontally)
                     Column(columnModifier) {
                         ButtonPreview(
                             R.drawable.cancel,
-                            "Botão de cancelar"
+                            "Cancel button"
                         ) {
                             navController.popBackStack()
                         }
@@ -87,13 +88,13 @@ fun PreviewScreen(
                     Column(columnModifier) {
                         ButtonPreview(
                             R.drawable.done,
-                            "Botão de aceitar"
+                            "Done button"
                         ) {
 
                             loadingState = !loadingState
 
                             GlobalScope.launch(Dispatchers.IO) {
-                                readImage = asyncCallApis(uri, context)
+                                readImage = asyncCallApis(uri)
                                 loadingState = !loadingState
                                 audioReady = !audioReady
                                 readImageRepository.save(readImage)
@@ -107,17 +108,19 @@ fun PreviewScreen(
 
         if (loadingState && !audioReady) {
             Column {
-                loading()
+                Loading()
             }
         }
 
         if (audioReady) {
             Column {
-                playButton(File(readImage.audioPath), mediaPlayer)
+                val audioFile = readImage.audioPath?.let { File(it) }
+
+                if (audioFile != null) {
+                    PlayButton(audioFile, mediaPlayer)
+                }
 
                 mediaPlayer.setOnCompletionListener {
-                    mediaPlayer.reset()
-                    mediaPlayer.release()
                     audioReady = !audioReady
                     navController.navigate(NavigationItem.Camera.route)
                 }
@@ -129,14 +132,18 @@ fun PreviewScreen(
     BackHandler(
         enabled = true,
         onBack = {
-            mediaPlayer.reset()
-            mediaPlayer.release()
+            mediaPlayer.stop()
             loadingState = false
             audioReady = false
-            readImage = ReadImage(0, "", "", LocalDateTime.now())
             navController.navigate(NavigationItem.Camera.route)
         }
     )
+
+    DisposableEffect(Unit) {
+        onDispose {
+            mediaPlayer.release()
+        }
+    }
 }
 
 @Composable

@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 data class ReadImage(
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name= "cd_read")
+    @ColumnInfo(name = "cd_read")
     val id: Long = 0,
 
     @ColumnInfo(name = "image_path")

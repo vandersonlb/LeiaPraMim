@@ -4,11 +4,11 @@ import retrofit2.Retrofit
 
 class TTSClient {
 
-    private val URL = "https://api.voicerss.org/"
+    private val url = "https://api.voicerss.org/"
 
     private val retrofitFactory = Retrofit
         .Builder()
-        .baseUrl(URL)
+        .baseUrl(url)
         .build()
 
     fun getTTSService(): TTSService {

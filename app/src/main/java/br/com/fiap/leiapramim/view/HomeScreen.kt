@@ -14,8 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import br.com.fiap.leiapramim.view.components.BottomNavigation
+import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 
 @Composable
 fun HomeScreen(navController: NavHostController, navigationViewModel: NavigationViewModel) {
@@ -31,12 +31,13 @@ fun HomeScreen(navController: NavHostController, navigationViewModel: Navigation
                 text = "Home",
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.align(Alignment.CenterVertically),
                 textAlign = TextAlign.Center,
-                fontSize = 20.sp
+                fontSize = 20.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
             )
         }
-        Row() {
+        Row {
             BottomNavigation(navController, navigationViewModel)
         }
     }

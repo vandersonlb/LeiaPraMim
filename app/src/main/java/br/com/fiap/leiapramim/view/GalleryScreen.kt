@@ -1,6 +1,7 @@
 package br.com.fiap.leiapramim.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.database.repository.ReadImageRepository
 import br.com.fiap.leiapramim.model.ReadImage
+import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.view.components.BottomNavigation
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import coil.compose.rememberImagePainter
@@ -53,11 +55,17 @@ fun GalleryScreen(
                     val imageFile = File("${readImage.imagePath}")
                     Image(
                         painter = rememberImagePainter(data = imageFile),
-                        contentDescription = "Foto",
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .padding(8.dp)
-                            .height(200.dp),
-                        contentScale = ContentScale.Crop
+                            .height(200.dp)
+                            .clickable(
+                                true,
+                                onClick = {
+                                    navController.navigate("${NavigationItem.GalleryPreview.route}/${readImage.id}")
+                                }
+                            )
                     )
 
                 }

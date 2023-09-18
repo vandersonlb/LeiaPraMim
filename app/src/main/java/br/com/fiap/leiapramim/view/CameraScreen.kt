@@ -32,9 +32,9 @@ fun CameraScreen(navController: NavHostController, navigationViewModel: Navigati
     val context = LocalContext.current
     val cameraExecutor = ContextCompat.getMainExecutor(context)
     val screenWith = Resources.getSystem().displayMetrics.widthPixels / 4
-    val screenHeigth = Resources.getSystem().displayMetrics.heightPixels / 4
+    val screenHeight = Resources.getSystem().displayMetrics.heightPixels / 4
     val imageCapture = ImageCapture.Builder()
-        .setTargetResolution(Size(screenWith, screenHeigth))
+        .setTargetResolution(Size(screenWith, screenHeight))
         .build()
 
     Box {

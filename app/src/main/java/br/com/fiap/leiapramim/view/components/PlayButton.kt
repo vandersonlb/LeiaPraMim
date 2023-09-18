@@ -1,7 +1,6 @@
 package br.com.fiap.leiapramim.view.components
 
 import android.media.MediaPlayer
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -10,18 +9,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
 import java.io.File
 
 @Composable
-fun playButton(audioFile: File, mediaPlayer: MediaPlayer) {
+fun PlayButton(audioFile: File, mediaPlayer: MediaPlayer) {
 
     Row(
         Modifier
@@ -46,10 +43,5 @@ fun playButton(audioFile: File, mediaPlayer: MediaPlayer) {
     mediaPlayer.prepare()
     mediaPlayer.start()
 
-//    DisposableEffect(Unit) {
-//        onDispose {
-//            mediaPlayer.release()
-//        }
-//    }
 }
 

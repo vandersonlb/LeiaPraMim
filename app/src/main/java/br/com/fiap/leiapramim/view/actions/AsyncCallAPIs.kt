@@ -10,7 +10,6 @@ import java.time.LocalDateTime
 
 suspend fun asyncCallApis(
     uri: Uri,
-    context: Context
 ): ReadImage {
 
     val ocrResponseDeferred = coroutineScope {
@@ -22,7 +21,7 @@ suspend fun asyncCallApis(
     val ttsResponseDeferred = coroutineScope {
         async(Dispatchers.IO) {
             val ocrResponse = ocrResponseDeferred.await()
-            sendTTS(uri, context, ocrResponse)
+            sendTTS(uri, ocrResponse)
         }
     }
 

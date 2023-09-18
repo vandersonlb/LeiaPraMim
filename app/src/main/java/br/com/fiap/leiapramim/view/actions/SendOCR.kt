@@ -1,7 +1,6 @@
 package br.com.fiap.leiapramim.view.actions
 
 import android.net.Uri
-import android.util.Log
 import br.com.fiap.leiapramim.model.OCRModel
 import br.com.fiap.leiapramim.service.OCRClient
 import kotlinx.coroutines.CompletableDeferred
@@ -29,9 +28,8 @@ suspend fun sendOCR(uri: Uri): String {
         ) {
             val ocrResponse = response.body()
 
-            //MELHORAR GERENCIAMENTO DE ERROS AQUI
             if (ocrResponse != null && ocrResponse.ocrExitCode != 1)
-                deferred.completeExceptionally(Exception("Falha na leitura da imagem"))
+                deferred.completeExceptionally(Exception("Failed to read the image"))
 
             val parsedText = ocrResponse?.parsedResults?.getOrNull(0)?.parsedText ?: ""
             deferred.complete(parsedText)

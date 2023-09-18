@@ -20,11 +20,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.ui.theme.Black
 import br.com.fiap.leiapramim.ui.theme.Orange
 import br.com.fiap.leiapramim.ui.theme.White
+import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 
 @Composable
 fun BottomNavigation(

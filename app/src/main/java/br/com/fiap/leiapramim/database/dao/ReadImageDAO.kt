@@ -13,7 +13,6 @@ interface ReadImageDAO {
     @Query("SELECT * FROM tbl_read_image WHERE cd_read = :id")
     fun getById(id: Long): ReadImage
 
-//    @Query("SELECT * FROM tbl_read_image ORDER BY date")
     @Query("SELECT * FROM tbl_read_image")
     fun list(): List<ReadImage>
 }

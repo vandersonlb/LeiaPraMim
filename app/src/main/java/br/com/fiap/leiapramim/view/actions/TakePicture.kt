@@ -31,11 +31,11 @@ fun takePicture(
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 val savedUri = Uri.fromFile(outputFile)
                 val escapedUri = Uri.encode(savedUri.toString())
-                navController.navigate(route = "${NavigationItem.Preview.route}/$escapedUri")
+                navController.navigate("${NavigationItem.Preview.route}/$escapedUri")
             }
 
             override fun onError(exception: ImageCaptureException) {
-                Log.e("FIAP", "$exception")
+                Log.e("test", "$exception")
             }
         }
     )

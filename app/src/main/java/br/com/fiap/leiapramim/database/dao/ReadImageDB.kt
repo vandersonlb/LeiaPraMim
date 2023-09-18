@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import br.com.fiap.leiapramim.model.ReadImage
 
 @Database(entities = [ReadImage::class], version = 1)
-abstract class ReadImageDB() : RoomDatabase() {
+abstract class ReadImageDB : RoomDatabase() {
 
     abstract fun readImageDAO(): ReadImageDAO
 
