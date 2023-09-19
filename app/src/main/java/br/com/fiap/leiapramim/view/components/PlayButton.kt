@@ -32,7 +32,7 @@ fun PlayButton(audioFile: File, mediaPlayer: MediaPlayer) {
             Modifier.size(256.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.play),
+                painter = painterResource(id = R.drawable.audio),
                 contentDescription = "Botão de play",
                 tint = Color.Unspecified,
             )

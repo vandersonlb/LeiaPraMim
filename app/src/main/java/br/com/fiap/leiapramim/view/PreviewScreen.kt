@@ -4,11 +4,13 @@ import android.media.MediaPlayer
 import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Icon
@@ -151,11 +153,13 @@ fun ButtonPreview(icon: Int, description: String, action: () -> Unit) {
 
     IconButton(
         onClick = { action() },
+        modifier = Modifier.size(50.dp)
     ) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = description,
-            tint = Color.Unspecified
+            tint = Color.Unspecified,
+            modifier = Modifier.size(560.dp)
         )
     }
 }

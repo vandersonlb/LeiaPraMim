@@ -90,17 +90,8 @@ dependencies {
     implementation("androidx.camera:camera-camera2:1.1.0")
     implementation("androidx.camera:camera-lifecycle:1.1.0")
     implementation("androidx.camera:camera-view:1.1.0")
-//    implementation("androidx.camera:camera-core:1.2.3")
-//    implementation("androidx.camera:camera-camera2:1.2.3")
-
-    // Glide
-//    implementation("com.github.bumptech.glide:glide:4.12.0")
-//    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-
 
     // Coil
     implementation ("io.coil-kt:coil-compose:1.4.0")
 
-//    implementation("com.squareup.okhttp3:okhttp:4.1.0")
-//    implementation("com.squareup.okhttp3:okhttp:4.9.1")
 }
