@@ -18,7 +18,7 @@ O **LeiaPraMim** foi desenvolvido com um propósito fundamental: proporcionar ac
 ### APIs Externas Integradas
 
 - [**Voice RSS**](https://www.voicerss.org/api/) - Text-to-Speech API
-- [**OCR Space**](https://www.voicerss.org/api/) - Optical Character Recognition
+- [**OCR Space**](https://ocr.space/ocrapi) - Optical Character Recognition
 
 ## Melhorias previstas
 - Cortar as fotos antes da "leitura"
